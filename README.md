@@ -24,7 +24,32 @@
 
 ### 2. アクセストークンの設定
 
-アプリを初回起動時に、画面上のモーダルダイアログでアクセストークンを入力してください。
+#### 方法1: .env ファイルを使用（推奨）
+
+1. プロジェクトルートに `.env` ファイルを作成（以下の内容で）：
+
+```bash
+# Mapbox アクセストークン
+MAPBOX_ACCESS_TOKEN=pk.eyJ1IjoieW91cnVzZXJuYW1lIiwiYSI6ImNrdGVzdGluZyJ9
+```
+
+**重要**: `pk.eyJ1Ijoi...` の部分を実際のMapboxアクセストークンに置き換えてください。
+
+2. 設定ファイルを生成：
+
+```bash
+npm run setup
+# または
+node setup.js
+```
+
+これで `.env` から `config.js` が自動生成され、アプリ起動時にトークンが読み込まれます。
+
+**注意**: `.env` ファイルは `.gitignore` に含まれているため、Gitにはコミットされません。チームで開発する場合は、各メンバーが各自の `.env` ファイルを作成してください。
+
+#### 方法2: ブラウザのモーダルダイアログを使用
+
+`.env` ファイルを設定しない場合、アプリを初回起動時に画面上のモーダルダイアログでアクセストークンを入力できます。
 
 - トークンはブラウザのローカルストレージに保存されます
 - 次回以降は自動的に使用されます
@@ -34,13 +59,42 @@
   location.reload();
   ```
 
+**優先順位**: ローカルストレージ > config.js (.env) > モーダル入力
+
+## セットアップ
+
+### 初回セットアップ
+
+1. `.env` ファイルを作成してアクセストークンを設定（上記参照）
+2. 設定ファイルを生成：
+
+```bash
+npm run setup
+```
+
+3. ローカルサーバーを起動（下記参照）
+
 ## 使い方
 
 ### ローカルサーバーで起動
 
 このアプリは静的ファイルのみで動作するため、ローカルサーバーで起動してください。
 
-#### 方法1: Python を使用（推奨）
+#### 方法1: npm scripts を使用（推奨）
+
+```bash
+# .env ファイルから config.js を生成（初回のみ、または .env を変更した後）
+npm run setup
+
+# サーバーを起動
+npm start
+# または
+npm run start:python
+# または
+npm run start:node
+```
+
+#### 方法2: Python を使用
 
 ```bash
 # Python 3.x がインストールされている場合
@@ -50,7 +104,7 @@ python -m http.server 8000
 python3 -m http.server 8000
 ```
 
-#### 方法2: Node.js を使用
+#### 方法3: Node.js (http-server) を使用
 
 ```bash
 # http-server をインストール（初回のみ）
@@ -60,10 +114,12 @@ npm install -g http-server
 http-server -p 8000
 ```
 
-#### 方法3: VS Code の Live Server 拡張機能
+#### 方法4: VS Code の Live Server 拡張機能
 
 1. VS Code に「Live Server」拡張機能をインストール
 2. `index.html` を右クリック → 「Open with Live Server」
+
+**注意**: VS Code の Live Server を使用する場合も、事前に `npm run setup` を実行して `config.js` を生成しておく必要があります。
 
 ### アクセス
 
@@ -89,6 +145,12 @@ Mapbox-test/
 ├── index.html      # メインHTMLファイル
 ├── app.js         # Mapbox初期化とアニメーション制御
 ├── styles.css     # スタイルシート
+├── setup.js       # .env から config.js を生成するスクリプト
+├── package.json   # npm scripts の定義
+├── .env           # 環境変数ファイル（gitignore対象、要作成）
+├── .env.example   # .env のテンプレート
+├── config.js      # 自動生成される設定ファイル（gitignore対象）
+├── .gitignore     # Git除外設定
 └── README.md      # このファイル
 ```
 
@@ -122,6 +184,14 @@ Mapbox-test/
 - ブラウザのコンソールでエラーメッセージを確認
 
 ### トークンを再設定したい
+
+#### .env ファイルを使用している場合
+
+1. `.env` ファイルを編集してトークンを変更
+2. `npm run setup` を実行して `config.js` を再生成
+3. ブラウザをリロード
+
+#### ブラウザのローカルストレージを使用している場合
 
 ブラウザの開発者ツール（F12）を開き、コンソールで以下を実行：
 

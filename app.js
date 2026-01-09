@@ -1,6 +1,8 @@
 // Mapbox アクセストークン
-// ローカルストレージに保存されたトークンを使用、なければ環境変数またはデフォルト値
-let mapboxAccessToken = localStorage.getItem('mapboxToken') || '';
+// 優先順位: 1. ローカルストレージ > 2. config.js (window.MAPBOX_ACCESS_TOKEN) > 3. 空文字列
+let mapboxAccessToken = localStorage.getItem('mapboxToken') || 
+                        (typeof window !== 'undefined' && window.MAPBOX_ACCESS_TOKEN) || 
+                        '';
 
 // 九州大学伊都キャンパス周辺の飛行ルートポイント
 const flightRoute = [

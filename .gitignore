@@ -1,0 +1,22 @@
+# 環境変数ファイル
+.env
+
+# 自動生成された設定ファイル
+config.js
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# エディタ
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

@@ -1,0 +1,22 @@
+{
+  "name": "mapbox-3d-terrain-viewer",
+  "version": "1.0.0",
+  "description": "Mapbox 3D地形ビュー検証アプリ - 九州大学伊都キャンパス周辺",
+  "main": "app.js",
+  "scripts": {
+    "setup": "node setup.js",
+    "start": "python3 -m http.server 8000",
+    "start:python": "python -m http.server 8000",
+    "start:node": "npx http-server -p 8000"
+  },
+  "keywords": [
+    "mapbox",
+    "3d",
+    "terrain",
+    "九州大学"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}
