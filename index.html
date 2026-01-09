@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapbox 3D 地形ビュー - 九州大学伊都キャンパス</title>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="map"></div>
+    
+    <!-- コントロールパネル -->
+    <div class="control-panel">
+        <h2>カメラ制御</h2>
+        
+        <div class="control-group">
+            <button id="startBtn" class="btn btn-primary">アニメーション開始</button>
+            <button id="stopBtn" class="btn btn-secondary" disabled>アニメーション停止</button>
+            <button id="resetBtn" class="btn btn-tertiary">初期位置に戻る</button>
+        </div>
+        
+        <div class="control-group">
+            <label for="speedSlider">アニメーション速度</label>
+            <input type="range" id="speedSlider" min="0.1" max="2.0" step="0.1" value="1.0">
+            <span id="speedValue">1.0x</span>
+        </div>
+        
+        <div class="control-group">
+            <label for="heightSlider">飛行高度（m）</label>
+            <input type="range" id="heightSlider" min="100" max="5000" step="100" value="2000">
+            <span id="heightValue">2000m</span>
+        </div>
+        
+        <div class="control-group">
+            <label for="pitchSlider">カメラ角度（度）</label>
+            <input type="range" id="pitchSlider" min="0" max="85" step="1" value="60">
+            <span id="pitchValue">60°</span>
+        </div>
+        
+        <div class="status">
+            <p id="statusText">待機中</p>
+            <p id="positionInfo">緯度: --, 経度: --, 高度: --</p>
+        </div>
+    </div>
+    
+    <!-- アクセストークン設定用のモーダル（初回のみ表示） -->
+    <div id="tokenModal" class="modal">
+        <div class="modal-content">
+            <h2>Mapbox アクセストークンの設定</h2>
+            <p>Mapboxのアクセストークンを入力してください。</p>
+            <input type="text" id="tokenInput" placeholder="pk.eyJ1Ijoi..." />
+            <div class="modal-buttons">
+                <button id="saveTokenBtn" class="btn btn-primary">保存して開始</button>
+                <a href="https://account.mapbox.com/access-tokens/" target="_blank" class="link">トークンを取得する</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js'></script>
+    <script src="app.js"></script>
+</body>
+</html>
